@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dwell-time: 800ms;
+  --font-size-editor: 18px;
+  --key-size: 70px;
+}
+
+body {
+  overflow: hidden;
+  cursor: none;
+}
+
+/* Show cursor on calibration screen and settings (need to click) */
+button, a, [role="button"] {
+  cursor: none;
+}
+
+/* CodeMirror overrides for accessibility */
+.cm-editor {
+  font-size: var(--font-size-editor) !important;
+  height: 100% !important;
+}
+
+.cm-editor .cm-scroller {
+  font-family: var(--font-geist-mono), "Fira Code", "Cascadia Code", monospace !important;
+}
+
+.cm-editor .cm-gutters {
+  background-color: #0d1117 !important;
+  border-right: 1px solid #21262d !important;
+}
+
+.cm-editor .cm-activeLineGutter {
+  background-color: #161b22 !important;
+}
+
+.cm-editor .cm-activeLine {
+  background-color: rgba(56, 139, 253, 0.1) !important;
+}
+
+/* Error line highlighting */
+.cm-error-line {
+  background-color: rgba(248, 81, 73, 0.15) !important;
+  text-decoration: underline wavy #f85149;
+}
+
+/* Ghost text animation */
+.cm-ghost-text {
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cm-ghost-text--hiding {
+  opacity: 0;
+  transform: translateY(2px);
+  pointer-events: none;
+}
+
+/* Gaze cursor */
+.gaze-cursor {
+  pointer-events: none;
+  z-index: 9999;
+  position: fixed;
+  border-radius: 50%;
+  transition: left 50ms linear, top 50ms linear;
+}
+
+/* Gaze click flash — brief blue outline on fallback clicks */
+.gaze-click-flash {
+  outline: 3px solid rgba(56, 139, 253, 0.8) !important;
+  outline-offset: 2px;
+  transition: outline 0.1s ease-out;
+}
+
+/* Spin animation for calibration screen */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Calibration done fadeout */
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.calibration-fadeout {
+  animation: fadeout 0.4s ease-out 0.2s forwards;
+}
+
+/* Dwell ring animation */
+@keyframes dwell-fill {
+  from {
+    stroke-dashoffset: 283;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.dwell-ring {
+  animation: dwell-fill var(--dwell-time) linear forwards;
+}
+
+/* Dwell bar animation for suggestion buttons */
+@keyframes dwell-bar-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.dwell-bar {
+  animation: dwell-bar-fill var(--dwell-time) linear forwards;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
+
+/* High contrast mode */
+.high-contrast .cm-editor {
+  font-size: 22px !important;
+}
+
+.high-contrast .key-btn {
+  border-width: 3px !important;
+  font-weight: 700 !important;
+}
