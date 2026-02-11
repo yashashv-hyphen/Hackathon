@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Lab — Motor‑Disabled Students</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <!-- Home: PDF upload -->
+    <section id="view-upload" class="view">
+      <header class="lab-header">
+        <h1>Virtual Lab Platform</h1>
+        <p class="subtitle">For motor‑disabled students • Upload your lab manual to begin</p>
+        <p class="instructions">
+          <button type="button" class="btn btn-eyes" id="btn-eyes" title="Eye control: pointer follows mouse or gaze. Stare to click, blink, or press Space.">
+            <span class="btn-eyes-icon" aria-hidden="true"></span>
+            <span id="btn-eyes-label">Use eyes (stare or blink to click)</span>
+          </button>
+          <span id="gaze-hint" class="gaze-hint" aria-live="polite"></span>
+        </p>
+      </header>
+      <main class="upload-main">
+        <div class="upload-card">
+          <label for="pdf-input" class="upload-label">Choose lab manual (PDF)</label>
+          <input type="file" id="pdf-input" accept=".pdf" class="upload-input" />
+          <button type="button" class="btn btn-primary" id="btn-upload" disabled>Upload</button>
+          <p id="upload-status" class="upload-status" aria-live="polite"></p>
+        </div>
+      </main>
+    </section>
+
+    <!-- Lab: experiment view -->
+    <section id="view-lab" class="view hidden">
+      <header class="lab-header">
+        <h1 id="lab-title">Virtual Chemistry Lab</h1>
+        <p class="subtitle" id="lab-objective">—</p>
+        <p class="instructions">
+          <button type="button" class="btn btn-eyes" id="btn-eyes-lab" title="Eye control">
+            <span class="btn-eyes-icon" aria-hidden="true"></span>
+            <span id="btn-eyes-label-lab">Use eyes</span>
+          </button>
+          <span id="gaze-hint-lab" class="gaze-hint" aria-live="polite"></span>
+        </p>
+      </header>
+
+      <main class="lab-bench">
+        <div class="bench-surface" id="bench-surface">
+          <!-- Apparatus & chemicals rendered from materials_required -->
+          <div id="apparatus-container" class="apparatus-container"></div>
+          <div id="observation-area" class="observation-area" aria-live="polite"></div>
+        </div>
+
+        <aside class="controls-panel">
+          <div class="procedure-panel">
+            <h3>Procedure</h3>
+            <ol class="steps" id="procedure-steps"></ol>
+          </div>
+          <div class="precautions-panel" id="precautions-panel">
+            <h3>Precautions</h3>
+            <ul id="precautions-list"></ul>
+          </div>
+          <div class="status-box">
+            <p id="status-text">Complete the current step using the lab equipment.</p>
+            <div id="feedback-box" class="feedback-box hidden"></div>
+            <div id="observation-box" class="observation-box hidden"></div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btn-back-upload">Back to upload</button>
+        </aside>
+      </main>
+    </section>
+
+    <!-- Chatbot -->
+    <button type="button" class="chatbot-fab" id="chatbot-fab" title="Ask for help (voice)">💬</button>
+    <div id="chatbot-modal" class="chatbot-modal hidden">
+      <div class="chatbot-dialog">
+        <h3>Lab assistant</h3>
+        <p class="chatbot-hint">Record your question (e.g. &quot;How do I add the indicator?&quot;). Use eyes to click Record, then Stop.</p>
+        <div class="chatbot-controls">
+          <button type="button" class="btn btn-primary" id="chatbot-record">Record</button>
+          <button type="button" class="btn btn-secondary hidden" id="chatbot-stop">Stop</button>
+        </div>
+        <p id="chatbot-recording-status" class="chatbot-status"></p>
+        <div id="chatbot-response" class="chatbot-response"></div>
+        <button type="button" class="btn btn-secondary" id="chatbot-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="gaze.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

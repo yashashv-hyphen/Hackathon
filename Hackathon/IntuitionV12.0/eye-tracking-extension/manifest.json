@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Eyes as Mouse",
+  "version": "1.0.0",
+  "description": "Eye tracking for browser: gaze moves cursor, blink triggers click.",
+  "permissions": ["activeTab", "scripting", "storage", "offscreen"],
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "sandbox": {
+    "pages": ["sandbox/sandbox.html"]
+  }
+}
