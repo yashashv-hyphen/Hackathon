@@ -45,3 +45,10 @@ class ExperimentResponse(BaseModel):#from modifer_llm.py to frontend
     materials_required: MaterialsRequired
     procedure: List[StepSchema]
     precautions: List[str]
+
+class ChatbotRequest(BaseModel):
+    experiment_id: int
+    audio: str  # base64 string
+    
+class ChatbotResponse(BaseModel):
+    response: str
