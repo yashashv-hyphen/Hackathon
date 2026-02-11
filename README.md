@@ -177,6 +177,7 @@ GROQ_API_KEY=your_groq_api_key_here
 ```
 
 Get your free Groq API key at: [console.groq.com](https://console.groq.com)
+if you aren't able to access the API, contact Telegram: @YashashvSamtani
 
 ### Run the Server
 ```bash
