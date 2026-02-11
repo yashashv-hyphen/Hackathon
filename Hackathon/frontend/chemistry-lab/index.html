@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Lab — Motor-Disabled Students</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <!-- Upload view -->
+    <section id="view-upload" class="view">
+      <header class="lab-header">
+        <div class="theme-title">
+          <h1>Virtual Lab Platform</h1>
+          <p class="subtitle">For motor-disabled students • Upload your lab manual to begin</p>
+        </div>
+        <p class="instructions">
+          <button type="button" class="btn btn-eyes" id="btn-eyes" title="Eye control: stare or blink to click">
+            <span class="btn-eyes-icon" aria-hidden="true"></span>
+            <span id="btn-eyes-label">Use eyes to click</span>
+          </button>
+          <span id="gaze-hint" class="gaze-hint" aria-live="polite"></span>
+        </p>
+      </header>
+      <main class="upload-main">
+        <div class="upload-card">
+          <label for="pdf-input" class="upload-label">Choose lab manual (PDF)</label>
+          <input type="file" id="pdf-input" accept=".pdf" class="upload-input" />
+          <button type="button" class="btn btn-green" id="btn-upload" disabled>Upload</button>
+          <p id="upload-status" class="upload-status" aria-live="polite"></p>
+        </div>
+      </main>
+    </section>
+
+    <!-- Lab view — big icons + animations -->
+    <section id="view-lab" class="view hidden">
+      <header class="lab-header">
+        <div class="theme-title">
+          <h1 id="lab-title">Virtual Chemistry Lab</h1>
+          <p class="subtitle" id="lab-objective">Acid–Base Titration • NaOH + HCl → NaCl + H₂O</p>
+        </div>
+        <p class="instructions">
+          <button type="button" class="btn btn-eyes" id="btn-eyes-lab" title="Eye control">
+            <span class="btn-eyes-icon" aria-hidden="true"></span>
+            <span id="btn-eyes-label-lab">Use eyes to click</span>
+          </button>
+          <span id="gaze-hint-lab" class="gaze-hint" aria-live="polite"></span>
+        </p>
+      </header>
+
+      <main class="lab-bench">
+        <div class="sim-border bench-surface">
+          <div class="apparatus beaker beaker-naoh" id="beaker-naoh" title="Click to fill burette with NaOH" data-apparatus="beaker">
+            <svg viewBox="0 0 100 120" class="beaker-svg">
+              <defs>
+                <linearGradient id="beakerGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#b8d4e8;stop-opacity:0.5" />
+                  <stop offset="50%" style="stop-color:#e8f4fc;stop-opacity:0.9" />
+                  <stop offset="100%" style="stop-color:#b8d4e8;stop-opacity:0.5" />
+                </linearGradient>
+                <linearGradient id="beakerLiquid" x1="0%" y1="100%" x2="0%" y2="0%">
+                  <stop offset="0%" style="stop-color:#4a7c9e" />
+                  <stop offset="100%" style="stop-color:#7eb8d4" />
+                </linearGradient>
+                <clipPath id="beakerLiquidClip">
+                  <path d="M 26 16 L 74 16 L 84 104 L 16 104 Z" />
+                </clipPath>
+              </defs>
+              <path d="M 25 15 L 75 15 L 85 105 L 15 105 Z" fill="url(#beakerGlass)" stroke="#5a8aa0" stroke-width="2" />
+              <rect id="beaker-naoh-liquid" x="16" y="30" width="68" height="70" fill="url(#beakerLiquid)" clip-path="url(#beakerLiquidClip)" opacity="0.9" />
+            </svg>
+            <span class="apparatus-label">NaOH (aq)</span>
+          </div>
+
+          <div class="apparatus pipette" id="pipette" title="Click to add HCl to flask" data-apparatus="pipette">
+            <svg viewBox="0 0 50 180" class="pipette-svg">
+              <defs>
+                <linearGradient id="pipetteGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#b8d4e8;stop-opacity:0.6" />
+                  <stop offset="50%" style="stop-color:#e8f4fc;stop-opacity:0.9" />
+                  <stop offset="100%" style="stop-color:#b8d4e8;stop-opacity:0.6" />
+                </linearGradient>
+              </defs>
+              <path d="M 15 0 L 35 0 L 35 140 L 25 160 L 15 140 Z" fill="url(#pipetteGlass)" stroke="#5a8aa0" stroke-width="2" />
+              <rect id="pipette-liquid" x="18" y="50" width="14" height="85" fill="#d4ccc0" opacity="0.92" rx="1" />
+            </svg>
+            <span class="apparatus-label">Pipette (HCl)</span>
+          </div>
+
+          <div class="apparatus dropper" id="dropper" title="Click to add phenolphthalein" data-apparatus="dropper">
+            <svg viewBox="0 0 60 100" class="dropper-svg">
+              <defs>
+                <linearGradient id="dropperGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#b8d4e8;stop-opacity:0.6" />
+                  <stop offset="50%" style="stop-color:#e8f4fc;stop-opacity:0.9" />
+                  <stop offset="100%" style="stop-color:#b8d4e8;stop-opacity:0.6" />
+                </linearGradient>
+              </defs>
+              <path d="M 25 0 L 35 0 L 35 55 Q 35 75 30 85 L 30 95 L 30 100 L 30 95 L 30 85 Q 25 75 25 55 Z" fill="url(#dropperGlass)" stroke="#5a8aa0" stroke-width="2" />
+              <circle cx="30" cy="92" r="5" fill="#c97b9a" opacity="0.9" />
+            </svg>
+            <span class="apparatus-label">Phenolphthalein</span>
+          </div>
+
+          <div class="titration-setup">
+            <div class="apparatus stand" id="stand" title="Adjust stand" data-apparatus="stand">
+              <svg viewBox="0 0 80 200" class="stand-svg">
+                <rect x="35" y="0" width="10" height="200" fill="currentColor" />
+                <rect x="0" y="185" width="80" height="15" fill="currentColor" />
+                <circle cx="40" cy="90" r="8" fill="var(--bench)" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="burette-flask-column">
+              <div class="apparatus burette" id="burette" title="Click to open/close tap" data-apparatus="burette">
+                <svg viewBox="0 0 120 280" class="burette-svg">
+                  <defs>
+                    <linearGradient id="buretteGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#b8d4e8;stop-opacity:0.6" />
+                      <stop offset="50%" style="stop-color:#e8f4fc;stop-opacity:0.9" />
+                      <stop offset="100%" style="stop-color:#b8d4e8;stop-opacity:0.6" />
+                    </linearGradient>
+                    <linearGradient id="titrantLiquid" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" style="stop-color:#4a7c9e" />
+                      <stop offset="100%" style="stop-color:#7eb8d4" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 25 20 L 25 260 L 95 260 L 95 20 Z" fill="url(#buretteGlass)" stroke="#5a8aa0" stroke-width="2" />
+                  <rect id="burette-liquid" x="28" y="255" width="64" height="0" fill="url(#titrantLiquid)" rx="2" />
+                  <g id="burette-tap">
+                    <rect x="48" y="255" width="24" height="20" fill="#3d5a6c" stroke="#2a3d4a" stroke-width="1" />
+                    <circle cx="60" cy="265" r="4" fill="#1a2d3a" />
+                  </g>
+                  <line x1="95" y1="40" x2="102" y2="40" stroke="#333" stroke-width="1" />
+                  <line x1="95" y1="80" x2="102" y2="80" stroke="#333" stroke-width="1" />
+                  <line x1="95" y1="120" x2="102" y2="120" stroke="#333" stroke-width="1" />
+                  <line x1="95" y1="160" x2="102" y2="160" stroke="#333" stroke-width="1" />
+                  <line x1="95" y1="200" x2="102" y2="200" stroke="#333" stroke-width="1" />
+                  <line x1="95" y1="240" x2="102" y2="240" stroke="#333" stroke-width="1" />
+                </svg>
+                <span class="apparatus-label">Burette (NaOH)</span>
+              </div>
+              <div class="apparatus flask flask-empty" id="flask" title="Click to swirl" data-apparatus="conical_flask">
+                <svg viewBox="0 0 140 180" class="flask-svg">
+                  <defs>
+                    <linearGradient id="flaskGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#b8d4e8;stop-opacity:0.5" />
+                      <stop offset="50%" style="stop-color:#e8f4fc;stop-opacity:0.85" />
+                      <stop offset="100%" style="stop-color:#b8d4e8;stop-opacity:0.5" />
+                    </linearGradient>
+                    <linearGradient id="flaskAcid" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" style="stop-color:#e0d8cc" />
+                      <stop offset="100%" style="stop-color:#f0ebe4" />
+                    </linearGradient>
+                    <linearGradient id="flaskPink" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" style="stop-color:#b86b8a" />
+                      <stop offset="100%" style="stop-color:#e8b4c8" />
+                    </linearGradient>
+                    <clipPath id="flaskLiquidClip">
+                      <rect id="flask-liquid-clip-rect" x="0" y="45" width="140" height="130" />
+                    </clipPath>
+                  </defs>
+                  <path d="M 70 15 L 105 160 Q 110 175 70 175 Q 30 175 35 160 Z" fill="url(#flaskGlass)" stroke="#5a8aa0" stroke-width="2" />
+                  <path id="flask-liquid" clip-path="url(#flaskLiquidClip)" d="M 68 20 L 102 162 Q 106 174 70 174 Q 34 174 38 162 Z" fill="url(#flaskAcid)" class="flask-liquid" />
+                </svg>
+                <span class="apparatus-label">Conical Flask</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="pour-stream" class="pour-stream" aria-hidden="true"></div>
+          <div id="drop-container" class="drop-container" aria-hidden="true"></div>
+          <div id="observation-area" class="observation-area" aria-live="polite"></div>
+        </div>
+
+        <aside class="controls-panel">
+          <div class="procedure-panel card-panel">
+            <h3>Procedure</h3>
+            <ol class="steps" id="procedure-steps"></ol>
+          </div>
+          <div class="precautions-panel card-panel" id="precautions-panel">
+            <h3>Precautions</h3>
+            <ul id="precautions-list"></ul>
+          </div>
+          <div class="status-box card-panel">
+            <p id="status-text">Complete the current step using the lab equipment.</p>
+            <p id="volume-display" class="volume-display">Burette: — mL</p>
+            <div id="feedback-box" class="feedback-box hidden"></div>
+            <div id="observation-box" class="observation-box hidden"></div>
+          </div>
+          <button type="button" class="btn btn-green" id="btn-record-reading">Record final reading</button>
+          <button type="button" class="btn btn-secondary" id="btn-back-upload">Back to upload</button>
+        </aside>
+      </main>
+    </section>
+
+    <!-- Chatbot -->
+    <button type="button" class="chatbot-fab" id="chatbot-fab" title="Ask for help (voice)">💬</button>
+    <div id="chatbot-modal" class="chatbot-modal hidden">
+      <div class="chatbot-dialog">
+        <h3>Lab assistant</h3>
+        <p class="chatbot-hint">Record your question. Use eyes to click Record, then Stop.</p>
+        <div class="chatbot-controls">
+          <button type="button" class="btn btn-green" id="chatbot-record">Record</button>
+          <button type="button" class="btn btn-secondary hidden" id="chatbot-stop">Stop</button>
+        </div>
+        <p id="chatbot-recording-status" class="chatbot-status"></p>
+        <div id="chatbot-response" class="chatbot-response"></div>
+        <button type="button" class="btn btn-secondary" id="chatbot-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="gaze.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
