@@ -188,8 +188,9 @@ Server runs at `http://localhost:8000` 🚀
 
 ---
 ## Error Resolution
-# If you get an error while uploading the lab manual please make sure to delete 
-```experiment.db
+If you get an error while uploading the lab manual please make sure to delete 
+```
+experiment.db
 ```
 ## 📁 Project Structure
 
